@@ -2,7 +2,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { RiderResult } from '@/lib/results';
-import BoltLogo from './BoltLogo';
 
 interface RiderCardProps {
   result: RiderResult;
@@ -64,7 +63,7 @@ export default function RiderCard({ result }: RiderCardProps) {
           {result.tagline}
         </p>
         <div className="flex items-center justify-between border-t border-white/20 pt-3.5">
-          <BoltLogo className="text-white" size={22} />
+          <Image src="/assets/bolt/Logo.png" alt="Bolt" width={50} height={18} style={{ objectFit: 'contain' }} />
           <div className="flex items-center gap-1.5">
             <span className="text-[10px] text-white/70">Move your way</span>
             <span className="w-1 h-1 bg-white/50 rounded-full" />

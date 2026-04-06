@@ -113,14 +113,19 @@ export default function MapTracker({ currentStop, totalStops, isAnimating }: Map
           <circle cx="305" cy="35" r="5" fill="#2DB757" />
           <line x1="305" y1="44" x2="305" y2="52" stroke="#fff" strokeWidth="2" />
         </g>
-        {/* Car */}
+        {/* Car — top-view Bolt vehicle */}
         <g ref={carRef} transform="translate(0, 75)">
           <circle cx="15" cy="15" r="14" fill="rgba(255,255,255,0.2)">
             <animate attributeName="r" values="12;20;12" dur="1.5s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.3;0.05;0.3" dur="1.5s" repeatCount="indefinite" />
           </circle>
-          <rect x="3" y="3" width="24" height="24" rx="7" fill="#fff" />
-          <text x="15" y="20" textAnchor="middle" fontSize="14">{'\u{1F697}'}</text>
+          <image
+            href="/assets/bolt/GreenCircleCarTop.png"
+            x="1"
+            y="1"
+            width="28"
+            height="28"
+          />
         </g>
       </svg>
     </div>

@@ -1,17 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import BoltLogo from './BoltLogo';
 
 interface LandingScreenProps {
   onStart: () => void;
 }
 
 export default function LandingScreen({ onStart }: LandingScreenProps) {
-  const [heroError, setHeroError] = useState(false);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -20,9 +16,16 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
       transition={{ duration: 0.5 }}
       className="flex flex-col justify-between min-h-[100dvh] bg-[#2DB757] px-6 pt-9 pb-8"
     >
-      {/* Top: Logo */}
-      <div className="flex items-center gap-2 mb-9">
-        <BoltLogo className="text-white" size={22} />
+      {/* Top: Official Bolt logo */}
+      <div className="flex items-center gap-2.5 mb-9">
+        <Image
+          src="/assets/bolt/Logo.png"
+          alt="Bolt"
+          width={60}
+          height={22}
+          priority
+          style={{ objectFit: 'contain' }}
+        />
         <span className="text-[10px] text-white/50 tracking-widest uppercase">Ghana</span>
       </div>
 
@@ -41,29 +44,30 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
         </p>
       </div>
 
-      {/* Hero image with all 4 vehicles */}
-      <div className="my-3 flex justify-center">
-        {heroError ? (
-          <div className="w-[320px] h-[140px] flex items-center justify-center bg-white/10 rounded-2xl">
-            {/* TODO: Replace with /assets/bolt/hero.png */}
-            <div className="flex gap-4 text-3xl">
-              <span>{'\u{1F697}'}</span>
-              <span>{'\u{1F698}'}</span>
-              <span>{'\u{1F4E6}'}</span>
-              <span>{'\u{1F6FA}'}</span>
-            </div>
-          </div>
-        ) : (
-          <Image
-            src="/assets/bolt/hero.png"
-            alt="Bolt vehicles"
-            width={320}
-            height={140}
-            priority
-            style={{ objectFit: 'contain' }}
-            onError={() => setHeroError(true)}
-          />
-        )}
+      {/* Hero — show all 4 vehicle assets in a row */}
+      <div className="my-4 flex items-end justify-center gap-1">
+        {[
+          { src: '/assets/bolt/basic.png', alt: 'Bolt Basic', w: 90, h: 65 },
+          { src: '/assets/bolt/comfort.png', alt: 'Bolt Comfort', w: 90, h: 65 },
+          { src: '/assets/bolt/send.png', alt: 'Bolt Send', w: 75, h: 60 },
+          { src: '/assets/bolt/tricycle.png', alt: 'Bolt Tricycle', w: 75, h: 60 },
+        ].map((v, i) => (
+          <motion.div
+            key={v.alt}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
+          >
+            <Image
+              src={v.src}
+              alt={v.alt}
+              width={v.w}
+              height={v.h}
+              style={{ objectFit: 'contain' }}
+              priority
+            />
+          </motion.div>
+        ))}
       </div>
 
       {/* CTA */}
