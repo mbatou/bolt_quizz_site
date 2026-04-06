@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { RiderResult } from "@/lib/results";
+import type { RiderResult } from '@/lib/results';
 
 interface ShareButtonsProps {
   result: RiderResult;
@@ -12,31 +12,30 @@ export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsP
   const shareUrl = `https://bolt.com.gh/rider?ref=${refCode}`;
 
   const shareWhatsApp = () => {
-    const text = `${result.emoji} I'm ${result.title}!\n${result.description.split(".")[0]}.\n\nWhat kind of Bolt rider are you?\nTake the ride \u{1F449} ${shareUrl}`;
+    const text = `I just took the Bolt Ghana quiz and I\u2019m ${result.move}! \u{1F697}\n${result.description}\n\nWhat\u2019s your Bolt move?\nTake the quiz \u{1F449} ${shareUrl}`;
     window.open(
       `https://wa.me/?text=${encodeURIComponent(text)}`,
-      "_blank"
+      '_blank'
     );
   };
 
   const shareNative = async () => {
-    if (typeof navigator !== "undefined" && navigator.share) {
+    if (typeof navigator !== 'undefined' && navigator.share) {
       try {
-        // Try to capture the card image
         let files: File[] | undefined;
         try {
-          const html2canvas = (await import("html2canvas")).default;
-          const card = document.getElementById("rider-card");
+          const html2canvas = (await import('html2canvas')).default;
+          const card = document.getElementById('rider-card');
           if (card) {
             const canvas = await html2canvas(card, {
               scale: 2,
               backgroundColor: null,
             });
             const blob = await new Promise<Blob | null>((resolve) =>
-              canvas.toBlob(resolve, "image/png")
+              canvas.toBlob(resolve, 'image/png')
             );
             if (blob) {
-              files = [new File([blob], "bolt-rider.png", { type: "image/png" })];
+              files = [new File([blob], 'bolt-rider.png', { type: 'image/png' })];
             }
           }
         } catch {
@@ -44,7 +43,7 @@ export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsP
         }
 
         await navigator.share({
-          title: `I'm ${result.title}!`,
+          title: `I\u2019m ${result.move} \u2014 ${result.category}!`,
           text: result.description,
           url: shareUrl,
           ...(files ? { files } : {}),
@@ -71,16 +70,16 @@ export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsP
         <button
           onClick={shareNative}
           className="flex-1 font-semibold text-[14px] py-3 rounded-2xl active:scale-[0.98] transition-transform"
-          style={{ background: "rgba(255,255,255,0.12)" }}
+          style={{ background: 'rgba(255,255,255,0.12)' }}
         >
-          📸 Instagram Stories
+          {'\u{1F4F8}'} Instagram Stories
         </button>
         <button
           onClick={shareNative}
           className="flex-1 font-semibold text-[14px] py-3 rounded-2xl active:scale-[0.98] transition-transform"
-          style={{ background: "rgba(255,255,255,0.12)" }}
+          style={{ background: 'rgba(255,255,255,0.12)' }}
         >
-          𝕏 Post
+          {'\uD835\uDD4F'} Post
         </button>
       </div>
 
@@ -88,7 +87,7 @@ export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsP
         onClick={onClaim}
         className="w-full bg-white text-black font-semibold text-[15px] py-3.5 rounded-2xl active:scale-[0.98] transition-transform mt-1"
       >
-        🎁 Claim your reward
+        {'\u{1F381}'} Claim your reward
       </button>
     </div>
   );

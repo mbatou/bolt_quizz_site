@@ -1,36 +1,36 @@
-"use client";
+'use client';
 
-import { useState, useCallback, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
-import LandingScreen from "@/components/LandingScreen";
-import QuizScreen from "@/components/QuizScreen";
-import TransitionScreen from "@/components/TransitionScreen";
-import ResultScreen from "@/components/ResultScreen";
-import RewardScreen from "@/components/RewardScreen";
-import { questions } from "@/lib/questions";
-import { results, type RiderType } from "@/lib/results";
-import { emptyScores, addScore, topCategory, type Scores } from "@/lib/scoring";
+import { useState, useCallback, useEffect } from 'react';
+import { AnimatePresence } from 'framer-motion';
+import LandingScreen from '@/components/LandingScreen';
+import QuizScreen from '@/components/QuizScreen';
+import TransitionScreen from '@/components/TransitionScreen';
+import ResultScreen from '@/components/ResultScreen';
+import RewardScreen from '@/components/RewardScreen';
+import { questions } from '@/lib/questions';
+import { results, type RiderType } from '@/lib/results';
+import { emptyScores, addScore, calculateRiderType, type Scores } from '@/lib/scoring';
 
-type Screen = "landing" | "quiz" | "transition" | "result" | "reward";
+type Screen = 'landing' | 'quiz' | 'transition' | 'result' | 'reward';
 
 export default function Home() {
-  const [screen, setScreen] = useState<Screen>("landing");
+  const [screen, setScreen] = useState<Screen>('landing');
   const [questionIndex, setQuestionIndex] = useState(0);
   const [scores, setScores] = useState<Scores>(emptyScores());
   const [riderType, setRiderType] = useState<RiderType | null>(null);
-  const [refCode, setRefCode] = useState("");
+  const [refCode, setRefCode] = useState('');
   const [referredBy, setReferredBy] = useState<string | null>(null);
   const [referralCount, setReferralCount] = useState(0);
 
   // Read referral code from URL on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const ref = params.get("ref");
+    const ref = params.get('ref');
     if (ref) setReferredBy(ref);
   }, []);
 
   const handleStart = useCallback(() => {
-    setScreen("quiz");
+    setScreen('quiz');
   }, []);
 
   const handleAnswer = useCallback(
@@ -40,24 +40,24 @@ export default function Home() {
 
       if (questionIndex < questions.length - 1) {
         // Show transition, then next question
-        setScreen("transition");
+        setScreen('transition');
         setTimeout(() => {
           setQuestionIndex((prev) => prev + 1);
-          setScreen("quiz");
+          setScreen('quiz');
         }, 1100);
       } else {
-        // Quiz complete — submit and show result
-        const type = topCategory(newScores);
+        // Quiz complete — calculate with Tricycle filter (Accra default)
+        const type = calculateRiderType(newScores, true);
         setRiderType(type);
-        setScreen("result");
+        setScreen('result');
 
         // Submit to API
-        fetch("/api/submit", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/api/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            rider_type: type,
             scores: newScores,
+            city: 'accra',
             referred_by: referredBy,
           }),
         })
@@ -66,7 +66,6 @@ export default function Home() {
             if (data.ref_code) setRefCode(data.ref_code);
           })
           .catch(() => {
-            // Generate a local fallback ref code
             setRefCode(Math.random().toString(36).substring(2, 10));
           });
       }
@@ -75,20 +74,20 @@ export default function Home() {
   );
 
   const handleClaim = useCallback(() => {
-    setScreen("reward");
+    setScreen('reward');
   }, []);
 
   const handleRetake = useCallback(() => {
-    setScreen("landing");
+    setScreen('landing');
     setQuestionIndex(0);
     setScores(emptyScores());
     setRiderType(null);
-    setRefCode("");
+    setRefCode('');
     setReferralCount(0);
   }, []);
 
   const handleDone = useCallback(() => {
-    setScreen("landing");
+    setScreen('landing');
   }, []);
 
   const currentResult = riderType ? results[riderType] : null;
@@ -96,11 +95,11 @@ export default function Home() {
   return (
     <main className="min-h-[100dvh] max-w-md mx-auto w-full relative overflow-hidden">
       <AnimatePresence mode="wait">
-        {screen === "landing" && (
+        {screen === 'landing' && (
           <LandingScreen key="landing" onStart={handleStart} />
         )}
 
-        {screen === "quiz" && (
+        {screen === 'quiz' && (
           <QuizScreen
             key={`quiz-${questionIndex}`}
             question={questions[questionIndex]}
@@ -110,14 +109,14 @@ export default function Home() {
           />
         )}
 
-        {screen === "transition" && (
+        {screen === 'transition' && (
           <TransitionScreen
             key={`transition-${questionIndex}`}
             nextIndex={questionIndex + 1}
           />
         )}
 
-        {screen === "result" && currentResult && (
+        {screen === 'result' && currentResult && (
           <ResultScreen
             key="result"
             result={currentResult}
@@ -127,7 +126,7 @@ export default function Home() {
           />
         )}
 
-        {screen === "reward" && currentResult && (
+        {screen === 'reward' && currentResult && (
           <RewardScreen
             key="reward"
             result={currentResult}

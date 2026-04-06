@@ -100,3 +100,9 @@ body {
 .car-pulse {
   animation: carPulse 2s ease-in-out infinite;
 }
+
+/* Slide up animation for card text */
+@keyframes slideUp {
+  from { transform: translateY(12px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

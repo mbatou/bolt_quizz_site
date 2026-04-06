@@ -1,59 +1,62 @@
-export type RiderType = "premium" | "bolt" | "xl" | "comfort";
+export type RiderType = 'basic' | 'comfort' | 'send' | 'tricycle';
 
 export interface RiderResult {
-  emoji: string;
-  type: string;
-  title: string;
+  type: RiderType;
+  move: string;
+  category: string;
+  tagline: string;
   description: string;
-  stat: string;
-  destination: string;
-  reward: string;
-  code: string;
+  asset: string;
+  incentive: string;
+  promoCode: string;
+  restrictedToAccra: boolean;
 }
 
 export const results: Record<RiderType, RiderResult> = {
-  premium: {
-    emoji: "\u{1F451}",
-    type: "Premium rider",
-    title: "The Baller",
-    description:
-      "Smooth rides only. AC on max, seats reclined, zero potholes. You move different.",
-    stat: "Only 9% of Accra riders are Ballers \u2014 you\u2019re rare",
-    destination: "Kempinski Hotel, Gold Coast City",
-    reward: "20% off your next Premium ride",
-    code: "BALLER20",
-  },
-  bolt: {
-    emoji: "\u{1F9E0}",
-    type: "Bolt rider",
-    title: "The Wise One",
-    description:
-      "Every pesewa counts. Maximum efficiency, zero waste. Smart money moves only.",
-    stat: "Wise Ones save avg GH\u20B5340/month on rides",
-    destination: "Makola Market, Central Accra",
-    reward: "15% off your next 3 rides",
-    code: "WISE15",
-  },
-  xl: {
-    emoji: "\u{1F389}",
-    type: "XL rider",
-    title: "The Crew Captain",
-    description:
-      "No squad, no ride. Life is better with your people. Every trip is a group trip.",
-    stat: "Crew Captains book 3x more group rides",
-    destination: "Labadi Beach, La",
-    reward: "25% off your next XL ride",
-    code: "CREW25",
+  basic: {
+    type: 'basic',
+    move: 'Smart & practical',
+    category: 'Bolt Basic',
+    tagline: 'Everyday rides, everyday wins.',
+    description: "You're moving your way with Bolt Basic \u2014 everyday rides, everyday wins.",
+    asset: '/assets/bolt/basic.png',
+    incentive: "Here's a 25% off promo code to try Bolt Comfort \u2014 because you deserve to move comfortably too.",
+    promoCode: 'BASIC25',
+    restrictedToAccra: false,
   },
   comfort: {
-    emoji: "\u26A1",
-    type: "Comfort rider",
-    title: "The Steady Mover",
-    description:
-      "No drama, no stress. Just get me there. Reliable, balanced, always on time.",
-    stat: "63% of Accra rides with Steady Movers \u2014 you\u2019re the backbone",
-    destination: "Accra Mall, Tetteh Quarshie",
-    reward: "Free ride this weekend",
-    code: "STEADY0",
+    type: 'comfort',
+    move: 'Smooth Operator',
+    category: 'Bolt Comfort',
+    tagline: 'More space, more ease.',
+    description: "You're moving your way with Bolt Comfort \u2014 more space, more ease.",
+    asset: '/assets/bolt/comfort.png',
+    incentive: "Here's a 25% off promo code to try Bolt Basic on your next ride. Smart moves at everyday prices.",
+    promoCode: 'COMFORT25',
+    restrictedToAccra: false,
+  },
+  send: {
+    type: 'send',
+    move: 'Hustle Hero',
+    category: 'Bolt Send',
+    tagline: 'Easy, quick package delivery.',
+    description: "You're moving your way with Bolt Send \u2014 quick, safe deliveries that keep life flowing.",
+    asset: '/assets/bolt/send.png',
+    incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for when you need to move yourself, not just your packages.",
+    promoCode: 'SEND25',
+    restrictedToAccra: false,
+  },
+  tricycle: {
+    type: 'tricycle',
+    move: 'Local & lively',
+    category: 'Bolt Tricycle',
+    tagline: 'Easy trips, local style.',
+    description: "You're moving your way with Bolt Tricycle \u2014 easy trips, local style.",
+    asset: '/assets/bolt/tricycle.png',
+    incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for those times you need to move beyond the neighborhood.",
+    promoCode: 'TRIKE25',
+    restrictedToAccra: true,
   },
 };
+
+export const TRICYCLE_DISCLAIMER = 'Psst\u2026 Bolt Tricycle is currently available only in Ho, Cape Coast, Tamale and Kumasi.';

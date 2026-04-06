@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import type { RiderResult } from "@/lib/results";
+import { motion } from 'framer-motion';
+import type { RiderResult } from '@/lib/results';
 
 interface RewardScreenProps {
   result: RiderResult;
@@ -19,10 +19,10 @@ export default function RewardScreen({
   const shareUrl = `https://bolt.com.gh/rider?ref=${refCode}`;
 
   const inviteWhatsApp = () => {
-    const text = `I just took the Bolt Ghana rider quiz and got a promo! 🚗\n\nTake the quiz and find out what kind of Bolt rider you are 👉 ${shareUrl}`;
+    const text = `I just took the Bolt Ghana quiz and got a promo! \u{1F697}\n\nTake the quiz and find out your Bolt move \u{1F449} ${shareUrl}`;
     window.open(
       `https://wa.me/?text=${encodeURIComponent(text)}`,
-      "_blank"
+      '_blank'
     );
   };
 
@@ -39,33 +39,33 @@ export default function RewardScreen({
       {/* Gift icon */}
       <div
         className="w-16 h-16 rounded-full flex items-center justify-center mb-6"
-        style={{ background: "rgba(255,255,255,0.12)" }}
+        style={{ background: 'rgba(255,255,255,0.12)' }}
       >
-        <span className="text-3xl">🎁</span>
+        <span className="text-3xl">{'\u{1F381}'}</span>
       </div>
 
       <p
         className="text-[11px] font-bold tracking-[0.2em] uppercase mb-2"
-        style={{ color: "rgba(255,255,255,0.55)" }}
+        style={{ color: 'rgba(255,255,255,0.55)' }}
       >
         YOUR REWARD
       </p>
 
-      <h2 className="text-[22px] font-bold mb-6">{result.reward}</h2>
+      <h2 className="text-[22px] font-bold mb-6">{result.incentive.split('.')[0]}</h2>
 
       {/* Promo code box */}
       <div
         className="w-full max-w-xs py-4 rounded-2xl mb-6"
-        style={{ border: "2px dashed rgba(255,255,255,0.35)" }}
+        style={{ border: '2px dashed rgba(255,255,255,0.35)' }}
       >
         <p className="text-[36px] font-bold tracking-wider font-mono">
-          {result.code}
+          {result.promoCode}
         </p>
       </div>
 
       {/* Referral progress */}
       <div className="w-full max-w-xs mb-8">
-        <p className="text-[13px] mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <p className="text-[13px] mb-3" style={{ color: 'rgba(255,255,255,0.55)' }}>
           Share with 3 friends to unlock a FREE ride
         </p>
         <div className="flex gap-2">
@@ -76,15 +76,15 @@ export default function RewardScreen({
               style={{
                 background:
                   i < referralCount
-                    ? "white"
-                    : "rgba(255,255,255,0.2)",
+                    ? 'white'
+                    : 'rgba(255,255,255,0.2)',
               }}
             />
           ))}
         </div>
         <p
           className="text-[12px] mt-2"
-          style={{ color: "rgba(255,255,255,0.35)" }}
+          style={{ color: 'rgba(255,255,255,0.35)' }}
         >
           {referralCount}/3 friends invited
         </p>
@@ -102,7 +102,7 @@ export default function RewardScreen({
       <button
         onClick={onDone}
         className="w-full max-w-xs font-semibold text-[14px] py-3 rounded-2xl active:scale-[0.98] transition-transform"
-        style={{ background: "rgba(255,255,255,0.12)" }}
+        style={{ background: 'rgba(255,255,255,0.12)' }}
       >
         Done
       </button>

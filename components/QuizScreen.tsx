@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import MapTracker from "./MapTracker";
-import type { QuizQuestion } from "@/lib/questions";
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import MapTracker from './MapTracker';
+import type { QuizQuestion } from '@/lib/questions';
 
 interface QuizScreenProps {
   question: QuizQuestion;
@@ -11,14 +11,6 @@ interface QuizScreenProps {
   totalQuestions: number;
   onAnswer: (category: string) => void;
 }
-
-const LOCATION_LABELS = [
-  "Circle, Accra",
-  "Lapaz traffic",
-  "Kaneshie",
-  "Osu, Oxford Street",
-  "Almost there",
-];
 
 export default function QuizScreen({
   question,
@@ -33,16 +25,15 @@ export default function QuizScreen({
     if (selectedIdx !== null) return;
     setSelectedIdx(idx);
 
-    // After 300ms, start car animation
+    // After 300ms, trigger the answer (car animation handles itself via currentStop change)
     setTimeout(() => {
       setMapAnimating(true);
+      // Give the map animation time, then transition
+      setTimeout(() => {
+        setMapAnimating(false);
+        onAnswer(question.options[idx].category);
+      }, 950);
     }, 300);
-  };
-
-  const handleMapDone = () => {
-    setMapAnimating(false);
-    const cat = question.options[selectedIdx!].category;
-    onAnswer(cat);
   };
 
   return (
@@ -57,8 +48,8 @@ export default function QuizScreen({
       {/* Map tracker */}
       <MapTracker
         currentStop={mapAnimating ? questionIndex + 1 : questionIndex}
-        animating={mapAnimating}
-        onAnimationDone={handleMapDone}
+        totalStops={totalQuestions}
+        isAnimating={mapAnimating}
       />
 
       {/* Progress dots */}
@@ -72,43 +63,28 @@ export default function QuizScreen({
                 width: i === questionIndex ? 22 : 8,
                 background:
                   i === questionIndex
-                    ? "white"
+                    ? 'white'
                     : i < questionIndex
-                    ? "rgba(255,255,255,0.8)"
-                    : "rgba(255,255,255,0.25)",
+                    ? 'rgba(255,255,255,0.8)'
+                    : 'rgba(255,255,255,0.25)',
               }}
             />
           ))}
         </div>
-        <span className="text-[13px]" style={{ color: "rgba(255,255,255,0.55)" }}>
+        <span className="text-[13px]" style={{ color: 'rgba(255,255,255,0.55)' }}>
           {questionIndex + 1}/{totalQuestions}
         </span>
       </div>
 
-      {/* Location pill */}
-      <div className="mt-5 mb-3">
-        <span
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium"
-          style={{ background: "rgba(255,255,255,0.12)" }}
-        >
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path
-              d="M6 1C4.067 1 2.5 2.567 2.5 4.5C2.5 7.25 6 11 6 11s3.5-3.75 3.5-6.5C9.5 2.567 7.933 1 6 1z"
-              fill="white"
-            />
-            <circle cx="6" cy="4.5" r="1.5" fill="#2DB757" />
-          </svg>
-          {LOCATION_LABELS[questionIndex]}
-        </span>
-      </div>
+      {/* Question number label */}
+      <p className="text-[11px] font-semibold tracking-widest uppercase mt-5 mb-2" style={{ color: 'rgba(255,255,255,0.45)' }}>
+        {question.number}
+      </p>
 
       {/* Question */}
-      <h2 className="text-[22px] font-bold leading-tight mb-1">
+      <h2 className="text-[22px] font-bold leading-tight mb-5">
         {question.title}
       </h2>
-      <p className="text-[13px] mb-5" style={{ color: "rgba(255,255,255,0.35)" }}>
-        {question.subtitle}
-      </p>
 
       {/* Options */}
       <div className="flex flex-col gap-3">
@@ -124,15 +100,15 @@ export default function QuizScreen({
               className="flex items-center gap-3 px-4 py-3.5 rounded-[14px] text-left transition-all duration-200"
               style={{
                 background: isSelected
-                  ? "rgba(255,255,255,0.3)"
-                  : "rgba(255,255,255,0.1)",
+                  ? 'rgba(255,255,255,0.3)'
+                  : 'rgba(255,255,255,0.1)',
                 border: isSelected
-                  ? "1.5px solid white"
-                  : "1.5px solid rgba(255,255,255,0.15)",
+                  ? '1.5px solid white'
+                  : '1.5px solid rgba(255,255,255,0.15)',
                 opacity: hasSelection && !isSelected ? 0.25 : 1,
               }}
             >
-              <span className="text-[20px] flex-shrink-0">{opt.icon}</span>
+              <span className="text-[20px] flex-shrink-0">{opt.emoji}</span>
               <span className="text-[14px] font-medium flex-1">{opt.text}</span>
               <svg
                 width="16"

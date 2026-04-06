@@ -1,39 +1,39 @@
-import { NextResponse } from "next/server";
-import { nanoid } from "nanoid";
-import { supabase } from "@/lib/supabase";
-import { results, type RiderType } from "@/lib/results";
-
-const VALID_TYPES = new Set<string>(["premium", "bolt", "xl", "comfort"]);
+import { NextResponse } from 'next/server';
+import { nanoid } from 'nanoid';
+import { supabase } from '@/lib/supabase';
+import { results, type RiderType } from '@/lib/results';
+import { calculateRiderType, type Scores } from '@/lib/scoring';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { rider_type, scores, referred_by } = body;
+    const { scores, city = 'accra', referred_by } = body as {
+      scores: Scores;
+      city?: string;
+      referred_by?: string;
+    };
 
-    if (!rider_type || !VALID_TYPES.has(rider_type)) {
-      return NextResponse.json(
-        { error: "Invalid rider type" },
-        { status: 400 }
-      );
-    }
+    const isInAccra = city.toLowerCase() === 'accra';
+    const rider_type = calculateRiderType(scores, isInAccra);
+    const result = results[rider_type];
 
     const refCode = nanoid(8);
-    const promoCode = results[rider_type as RiderType].code;
+    const promoCode = result.promoCode;
 
     // Save quiz result
     const { error: insertError } = await supabase
-      .from("quiz_results")
+      .from('quiz_results')
       .insert({
         rider_type,
         scores,
         ref_code: refCode,
         referred_by: referred_by || null,
         promo_code: promoCode,
+        city,
       });
 
     if (insertError) {
-      console.error("Insert error:", insertError);
-      // Return fallback data even if DB insert fails
+      console.error('Insert error:', insertError);
       return NextResponse.json({
         ref_code: refCode,
         promo_code: promoCode,
@@ -43,27 +43,27 @@ export async function POST(request: Request) {
 
     // Create referral progress entry
     await supabase
-      .from("referral_progress")
+      .from('referral_progress')
       .insert({ ref_code: refCode, friends_count: 0, bonus_unlocked: false })
       .select();
 
     // If referred_by exists, update referrer's count
     if (referred_by) {
       const { data: progress } = await supabase
-        .from("referral_progress")
-        .select("friends_count")
-        .eq("ref_code", referred_by)
+        .from('referral_progress')
+        .select('friends_count')
+        .eq('ref_code', referred_by)
         .single();
 
       if (progress) {
         const newCount = progress.friends_count + 1;
         await supabase
-          .from("referral_progress")
+          .from('referral_progress')
           .update({
             friends_count: newCount,
             bonus_unlocked: newCount >= 3,
           })
-          .eq("ref_code", referred_by);
+          .eq('ref_code', referred_by);
       }
     }
 
@@ -73,9 +73,9 @@ export async function POST(request: Request) {
       rider_type,
     });
   } catch (error) {
-    console.error("Submit error:", error);
+    console.error('Submit error:', error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

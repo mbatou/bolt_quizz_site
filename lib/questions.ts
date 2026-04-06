@@ -1,70 +1,86 @@
+import { RiderType } from './results';
+
 export interface QuizOption {
   text: string;
-  category: "premium" | "bolt" | "xl" | "comfort";
-  icon: string;
+  category: RiderType;
+  emoji: string;
 }
 
 export interface QuizQuestion {
-  location: string;
+  number: string;
   title: string;
-  subtitle: string;
   options: QuizOption[];
 }
 
 export const questions: QuizQuestion[] = [
   {
-    location: "Circle, Accra",
-    title: "It\u2019s Saturday afternoon. Where to?",
-    subtitle: "Your destination reveals your rider DNA.",
+    number: 'Question 1 of 7',
+    title: "When you\u2019re heading into town, what\u2019s your top priority?",
     options: [
-      { text: "Kempinski. Brunch is calling", category: "premium", icon: "\u{1F942}" },
-      { text: "Makola Market \u2014 deals dey wait", category: "bolt", icon: "\u{1F6CD}" },
-      { text: "Labadi Beach. Full squad loading", category: "xl", icon: "\u{1F3D6}" },
-      { text: "East Legon for a chill link-up", category: "comfort", icon: "\u2615" },
+      { text: "Chale, let\u2019s save these coins", category: 'basic', emoji: '\u{1FA99}' },
+      { text: 'Legs must stretch, AC must chill', category: 'comfort', emoji: '\u{1F60E}' },
+      { text: 'Customer is waiting oo, package must land', category: 'send', emoji: '\u{1F4E6}' },
+      { text: 'Shortcut through the hood, abeg', category: 'tricycle', emoji: '\u{1F6A6}' },
     ],
   },
   {
-    location: "Lapaz traffic",
-    title: "Classic go-slow. 30 min, nothing dey move.",
-    subtitle: "How you dey handle am?",
+    number: 'Question 2 of 7',
+    title: 'Your weekend vibe looks like\u2026',
     options: [
-      { text: "\u201CDriver, kindly max the AC\u201D", category: "premium", icon: "\u2744" },
-      { text: "Check MoMo. Plan tomorrow\u2019s hustle", category: "bolt", icon: "\u{1F4F1}" },
-      { text: "Video call the crew \u2014 all late anyway", category: "xl", icon: "\u{1F4F9}" },
-      { text: "Amaarae on shuffle. Window down. Vibes", category: "comfort", icon: "\u{1F3B5}" },
+      { text: 'Errands + trotro-level budgeting = me', category: 'basic', emoji: '\u{1F9EE}' },
+      { text: 'Brunch, selfies, and good vibes only', category: 'comfort', emoji: '\u2728' },
+      { text: 'Side hustle never sleeps, deliveries loading', category: 'send', emoji: '\u{1F4F2}' },
+      { text: 'Family time + chilling with the boys/girls', category: 'tricycle', emoji: '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}' },
     ],
   },
   {
-    location: "Kaneshie",
-    title: "Driver knows a shortcut. Rough road, saves 10 min.",
-    subtitle: "Your call, charle.",
+    number: 'Question 3 of 7',
+    title: "When someone asks you for a favor, you\u2019re most likely to\u2026",
     options: [
-      { text: "\u201CNo rough roads. I just dressed up\u201D", category: "premium", icon: "\u{1F454}" },
-      { text: "\u201CIf e save me money? Say less\u201D", category: "bolt", icon: "\u{1F4B0}" },
-      { text: "\u201CCan we all fit through there?\u201D", category: "xl", icon: "\u{1F465}" },
-      { text: "\u201CYou know Accra pass me, driver\u201D", category: "comfort", icon: "\u{1F91D}" },
+      { text: "If it\u2019s small-small, I fit do", category: 'basic', emoji: '\u{1F4AA}\u{1F3FE}' },
+      { text: "Don\u2019t worry, I\u2019ve got you covered", category: 'comfort', emoji: '\u{1F60C}' },
+      { text: 'Send me location, I dey deliver fast', category: 'send', emoji: '\u{1F6B4}\u{1F3FE}' },
+      { text: "Squad assemble, let\u2019s all help", category: 'tricycle', emoji: '\u{1F91D}\u{1F3FE}' },
     ],
   },
   {
-    location: "Osu, Oxford Street",
-    title: "Your fave chop bar. Waakye is RIGHT THERE.",
-    subtitle: "Car still moving. What\u2019s the move?",
+    number: 'Question 4 of 7',
+    title: "What\u2019s your go-to hustle move?",
     options: [
-      { text: "\u201CI go eat at the restaurant\u201D", category: "premium", icon: "\u{1F377}" },
-      { text: "\u201CSTOP! Waakye + shito. GH\u20B515 max\u201D", category: "bolt", icon: "\u{1F35B}" },
-      { text: "\u201CPull over, buying for everyone\u201D", category: "xl", icon: "\u{1F389}" },
-      { text: "\u201CI dey cool. Keep going charle\u201D", category: "comfort", icon: "\u270C" },
+      { text: "Stretch 10 cedis like it\u2019s 100", category: 'basic', emoji: '\u{1F9EE}' },
+      { text: 'Upgrade the lifestyle, soft life only', category: 'comfort', emoji: '\u{1F334}' },
+      { text: 'Drop-off, pick-up, repeat \u2014 my grind never stops', category: 'send', emoji: '\u{1F4E6}' },
+      { text: 'Run small runs for the area people', category: 'tricycle', emoji: '\u{1F3D8}\uFE0F' },
     ],
   },
   {
-    location: "Almost there",
-    title: "You reach 20 min early. Now what?",
-    subtitle: "Last move of the ride.",
+    number: 'Question 5 of 7',
+    title: 'Which traffic survival style is you?',
     options: [
-      { text: "Caf\u00E9 with WiFi and AC. Obviously", category: "premium", icon: "\u{1F4BB}" },
-      { text: "Check app for a return promo", category: "bolt", icon: "\u{1F3AB}" },
-      { text: "\u201CCharle I\u2019m here oo! Wh3r3 you dey?\u201D", category: "xl", icon: "\u{1F4E2}" },
-      { text: "Stay in car. Finish the podcast", category: "comfort", icon: "\u{1F3A7}" },
+      { text: "Beat rush hour or don\u2019t bother", category: 'basic', emoji: '\u{1F645}\u{1F3FE}' },
+      { text: 'Chill in AC, scroll TikTok, no stress', category: 'comfort', emoji: '\u{1F4F1}' },
+      { text: 'Zoom past everyone on a bike', category: 'send', emoji: '\u{1F6B4}\u{1F3FE}' },
+      { text: 'Local backroads, tricycle-only lane', category: 'tricycle', emoji: '\u{1F92B}' },
+    ],
+  },
+  {
+    number: 'Question 6 of 7',
+    title: 'Your friends describe you as\u2026',
+    options: [
+      { text: 'The practical one', category: 'basic', emoji: '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BC}' },
+      { text: 'The bougie one', category: 'comfort', emoji: '\u{1F60C}' },
+      { text: 'The reliable hustler', category: 'send', emoji: '\u{1F4BC}' },
+      { text: 'The life of the party', category: 'tricycle', emoji: '\u{1F389}' },
+    ],
+  },
+  {
+    number: 'Question 7 of 7',
+    title: "If Bolt gave you free rides for a week, you\u2019d mostly use it for\u2026",
+    options: [
+      { text: 'Errands and market runs', category: 'basic', emoji: '\u{1F6CD}\uFE0F' },
+      { text: 'Work trips and night outs', category: 'comfort', emoji: '\u{1F303}' },
+      { text: 'Deliveries back-to-back', category: 'send', emoji: '\u{1F4E6}' },
+      { text: 'Neighborhood hopping, chilling everywhere', category: 'tricycle', emoji: '\u{1F6B2}' },
     ],
   },
 ];

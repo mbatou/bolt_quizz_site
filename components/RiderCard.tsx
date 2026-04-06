@@ -1,67 +1,78 @@
-"use client";
-
-import type { RiderResult } from "@/lib/results";
+'use client';
+import Image from 'next/image';
+import { useState } from 'react';
+import { RiderResult } from '@/lib/results';
+import BoltLogo from './BoltLogo';
 
 interface RiderCardProps {
   result: RiderResult;
 }
 
 export default function RiderCard({ result }: RiderCardProps) {
+  const [imgError, setImgError] = useState(false);
+
   return (
     <div
       id="rider-card"
-      className="bg-white rounded-[20px] p-6 w-full max-w-sm mx-auto text-center"
+      className="relative overflow-hidden rounded-3xl border-2 border-white/20"
+      style={{ backgroundColor: '#2DB757', minHeight: 380 }}
     >
-      {/* Emoji */}
-      <div className="text-[56px] leading-none mb-3 count-up">
-        {result.emoji}
-      </div>
-
-      {/* Rider type label */}
-      <p
-        className="text-[11px] font-bold tracking-[0.15em] uppercase mb-1"
-        style={{ color: "#2DB757" }}
-      >
-        {result.type}
-      </p>
-
-      {/* Persona name */}
-      <h2 className="text-[34px] font-bold text-black leading-tight mb-2">
-        {result.title}
-      </h2>
-
-      {/* Description */}
-      <p className="text-[14px] text-gray-500 leading-relaxed mb-4">
-        {result.description}
-      </p>
-
-      {/* Stat box */}
-      <div
-        className="rounded-xl px-4 py-3 flex items-center gap-2"
-        style={{ background: "rgba(45,183,87,0.08)" }}
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          className="flex-shrink-0"
-        >
-          <rect x="1" y="9" width="3" height="6" rx="1" fill="#2DB757" />
-          <rect x="6" y="5" width="3" height="10" rx="1" fill="#2DB757" />
-          <rect x="11" y="1" width="3" height="14" rx="1" fill="#2DB757" />
-        </svg>
-        <p className="text-[12px] text-left" style={{ color: "#2DB757" }}>
-          {result.stat}
+      <div className="px-6 pt-7 relative z-10">
+        <p className="text-[13px] text-white/85 font-medium leading-tight">
+          Your move:
         </p>
+        <h3 className="text-[26px] font-extrabold text-[#1a1a1a] leading-[1.1] mt-0.5">
+          {result.move}.
+        </h3>
+        <h2 className="text-[26px] font-extrabold text-white leading-[1.1]">
+          {result.category}
+        </h2>
       </div>
 
-      {/* Footer */}
-      <div className="flex items-center justify-center gap-2 mt-5 pt-4 border-t border-gray-100">
-        <div className="w-5 h-5 rounded-full bg-[#2DB757] flex items-center justify-center">
-          <span className="text-white text-[10px] font-bold">B</span>
+      <div className="text-center py-4">
+        <div className="relative inline-block w-[180px] h-[140px]">
+          {imgError ? (
+            <div className="w-full h-full flex flex-col items-center justify-center bg-white/10 rounded-2xl">
+              {/* TODO: Replace with actual Bolt 3D asset */}
+              <span className="text-4xl mb-1">
+                {result.type === 'basic' && '\u{1F697}'}
+                {result.type === 'comfort' && '\u{1F698}'}
+                {result.type === 'send' && '\u{1F4E6}'}
+                {result.type === 'tricycle' && '\u{1F6FA}'}
+              </span>
+              <span className="text-[10px] text-white/50">{result.category}</span>
+            </div>
+          ) : (
+            <Image
+              src={result.asset}
+              alt={result.category}
+              fill
+              sizes="180px"
+              style={{
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18))',
+              }}
+              priority
+              onError={() => setImgError(true)}
+            />
+          )}
         </div>
-        <span className="text-[11px] text-gray-400">bolt.com.gh/rider</span>
+      </div>
+
+      <div className="px-6 pb-6">
+        <p className="text-lg font-bold text-[#1a1a1a] leading-tight mb-4">
+          {result.tagline}
+        </p>
+        <div className="flex items-center justify-between border-t border-white/20 pt-3.5">
+          <BoltLogo className="text-white" size={22} />
+          <div className="flex items-center gap-1.5">
+            <span className="text-[10px] text-white/70">Move your way</span>
+            <span className="w-1 h-1 bg-white/50 rounded-full" />
+            <span className="text-[10px] text-white/90 font-semibold">
+              {result.category.replace('Bolt ', '')}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
