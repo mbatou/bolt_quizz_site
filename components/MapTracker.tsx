@@ -76,58 +76,68 @@ export default function MapTracker({ currentStop, totalStops, isAnimating }: Map
 
   return (
     <div
-      className="rounded-2xl p-3 relative overflow-hidden"
-      style={{
-        backgroundColor: 'rgba(0,0,0,0.08)',
-        backgroundImage:
-          'repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 22px), ' +
-          'repeating-linear-gradient(-45deg, rgba(255,255,255,0.04) 0, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 22px)',
-      }}
+      className="rounded-2xl relative overflow-hidden"
+      style={{ backgroundColor: '#f5f5f0' }}
     >
-      <svg viewBox="0 0 320 110" className="w-full block">
-        {/* Faded full route */}
-        <path
-          ref={pathRef}
-          d={ROUTE_PATH}
-          stroke="rgba(255,255,255,0.18)"
-          strokeWidth="3"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="6 4"
-        />
-        {/* Animated progress trail */}
-        <path
-          ref={progressRef}
-          d={ROUTE_PATH}
-          stroke="#ffffff"
-          strokeWidth="4"
-          fill="none"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="0 1000"
-        />
-        {/* Destination pin */}
-        <g>
-          <circle cx="305" cy="35" r="9" fill="#fff" />
-          <circle cx="305" cy="35" r="5" fill="#2DB757" />
-          <line x1="305" y1="44" x2="305" y2="52" stroke="#fff" strokeWidth="2" />
-        </g>
-        {/* Car — top-view Bolt vehicle */}
-        <g ref={carRef} transform="translate(0, 75)">
-          <circle cx="15" cy="15" r="14" fill="rgba(255,255,255,0.2)">
-            <animate attributeName="r" values="12;20;12" dur="1.5s" repeatCount="indefinite" />
-            <animate attributeName="opacity" values="0.3;0.05;0.3" dur="1.5s" repeatCount="indefinite" />
-          </circle>
-          <image
-            href="/assets/bolt/GreenCircleCarTop.png"
-            x="1"
-            y="1"
-            width="28"
-            height="28"
+      {/* Tiled diamond pattern background from Bolt's map-bg.svg */}
+      <div
+        className="absolute inset-0 opacity-60"
+        style={{
+          backgroundImage: 'url(/assets/bolt/map-bg.svg)',
+          backgroundSize: '200px',
+          backgroundRepeat: 'repeat',
+        }}
+      />
+
+      <div className="relative p-3">
+        <svg viewBox="0 0 320 110" className="w-full block">
+          {/* Faded full route — light green dashed */}
+          <path
+            ref={pathRef}
+            d={ROUTE_PATH}
+            stroke="#2DB757"
+            strokeWidth="3"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="6 4"
+            opacity="0.3"
           />
-        </g>
-      </svg>
+          {/* Animated progress trail — solid green */}
+          <path
+            ref={progressRef}
+            d={ROUTE_PATH}
+            stroke="#2DB757"
+            strokeWidth="4.5"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="0 1000"
+          />
+          {/* Destination pin */}
+          <g>
+            <circle cx="305" cy="35" r="9" fill="#2DB757" />
+            <circle cx="305" cy="35" r="4" fill="#fff" />
+            <line x1="305" y1="44" x2="305" y2="52" stroke="#2DB757" strokeWidth="2" />
+          </g>
+          {/* Start dot */}
+          <circle cx="15" cy="90" r="5" fill="#2DB757" opacity="0.5" />
+          {/* Car — top-view Bolt vehicle */}
+          <g ref={carRef} transform="translate(0, 75)">
+            <circle cx="15" cy="15" r="14" fill="rgba(45,183,87,0.15)">
+              <animate attributeName="r" values="12;20;12" dur="1.5s" repeatCount="indefinite" />
+              <animate attributeName="opacity" values="0.3;0.05;0.3" dur="1.5s" repeatCount="indefinite" />
+            </circle>
+            <image
+              href="/assets/bolt/GreenCircleCarTop.png"
+              x="1"
+              y="1"
+              width="28"
+              height="28"
+            />
+          </g>
+        </svg>
+      </div>
     </div>
   );
 }
