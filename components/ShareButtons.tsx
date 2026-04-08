@@ -13,7 +13,7 @@ interface ShareButtonsProps {
 export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsProps) {
   const [isSharing, setIsSharing] = useState(false);
 
-  const shareUrl = `https://bolt.com.gh/rider?ref=${refCode}`;
+  const shareUrl = `https://bolt-quizz-site.vercel.app/?ref=${refCode}`;
 
   const handleWhatsApp = () => {
     const text = `I\u2019m a ${result.move}! ${result.category} is my ride match.\n\nWhat\u2019s your move? Take the Bolt Ghana quiz: ${shareUrl}`;

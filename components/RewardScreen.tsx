@@ -22,7 +22,7 @@ export default function RewardScreen({
   referralCount,
   onDone,
 }: RewardScreenProps) {
-  const shareUrl = `https://bolt.com.gh/rider?ref=${refCode}`;
+  const shareUrl = `https://bolt-quizz-site.vercel.app/?ref=${refCode}`;
 
   const inviteWhatsApp = () => {
     const text = `I just took the Bolt Ghana quiz and got a promo! \u{1F697}\n\nTake the quiz and find out your Bolt move \u{1F449} ${shareUrl}`;

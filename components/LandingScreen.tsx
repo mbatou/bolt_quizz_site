@@ -85,6 +85,12 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
         <p className="text-[11px] text-white/50 text-center mt-3.5">
           7 questions &middot; 90 seconds &middot; 1 perfect ride match
         </p>
+        <p className="text-[9px] text-white/30 text-center mt-4">
+          Built by{' '}
+          <a href="https://www.lupandu.org" target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
+            Lupandu
+          </a>
+        </p>
       </div>
     </motion.div>
   );
