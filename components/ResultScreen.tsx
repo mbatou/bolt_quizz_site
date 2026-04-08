@@ -127,6 +127,35 @@ export default function ResultScreen({
         </p>
       </div>
 
+      {/* Contest CTA — tag @bolt_ghana for a chance to win */}
+      <div className="mt-4 rounded-2xl p-4 border border-white/10 w-full" style={{ backgroundColor: '#0C2C1C' }}>
+        <div className="flex items-start gap-3">
+          <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#2A9C64' }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z" />
+            </svg>
+          </div>
+          <div className="flex-1">
+            <p className="text-[13px] font-bold text-white leading-tight mb-1">
+              Win exciting prizes {'\u{1F381}'}
+            </p>
+            <p className="text-[12px] text-white/75 leading-[1.45]">
+              Share your results to Instagram and tag{' '}
+              <a
+                href="https://instagram.com/bolt_ghana"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline underline-offset-2"
+                style={{ color: '#2A9C64', textDecorationColor: 'rgba(42,156,100,0.4)' }}
+              >
+                @bolt_ghana
+              </a>{' '}
+              for a chance to win. Check our page for more info.
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Share buttons */}
       <ShareButtons result={result} refCode={refCode} onClaim={onClaim} />
 

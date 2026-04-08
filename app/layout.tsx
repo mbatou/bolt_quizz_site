@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <head>
-        <meta name="theme-color" content="#2DB757" />
+        <meta name="theme-color" content="#2A9C64" />
         <link
           rel="preconnect"
           href={process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""}

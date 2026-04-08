@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bolt-green: #2DB757;
-  --color-bolt-dark: #249648;
+  --color-bolt-green: #2A9C64;
+  --color-bolt-dark-green: #0C2C1C;
 }
 
 * {
@@ -15,7 +15,7 @@ html, body {
 }
 
 body {
-  background: #2DB757;
+  background: #2A9C64;
   color: #ffffff;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;

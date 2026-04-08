@@ -14,7 +14,7 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.5 }}
-      className="flex flex-col justify-between min-h-[100dvh] bg-[#2DB757] px-6 pt-9 pb-8"
+      className="flex flex-col justify-between min-h-[100dvh] bg-[#2A9C64] px-6 pt-9 pb-8"
     >
       {/* Top: Official Bolt logo */}
       <div className="flex items-center gap-2.5 mb-9">

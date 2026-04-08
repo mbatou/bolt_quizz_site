@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
           width: '100%',
           height: '100%',
           display: 'flex',
-          backgroundColor: '#2DB757',
+          backgroundColor: '#2A9C64',
           fontFamily: 'system-ui, sans-serif',
           padding: '60px',
         }}
@@ -97,7 +97,7 @@ export async function GET(request: NextRequest) {
                 justifyContent: 'center',
                 fontWeight: 800,
                 fontSize: 18,
-                color: '#2DB757',
+                color: '#2A9C64',
               }}
             >
               B

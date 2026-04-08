@@ -134,7 +134,7 @@ export default function MapTracker({ currentStop, totalStops, isAnimating }: Map
           <path
             ref={pathRef}
             d={ROUTE_PATH}
-            stroke="#2DB757"
+            stroke="#2A9C64"
             strokeWidth="3"
             fill="none"
             strokeLinecap="round"
@@ -146,7 +146,7 @@ export default function MapTracker({ currentStop, totalStops, isAnimating }: Map
           <path
             ref={progressRef}
             d={ROUTE_PATH}
-            stroke="#2DB757"
+            stroke="#2A9C64"
             strokeWidth="4.5"
             fill="none"
             strokeLinecap="round"
@@ -155,15 +155,15 @@ export default function MapTracker({ currentStop, totalStops, isAnimating }: Map
           />
           {/* Destination pin */}
           <g>
-            <circle cx="305" cy="35" r="9" fill="#2DB757" />
+            <circle cx="305" cy="35" r="9" fill="#2A9C64" />
             <circle cx="305" cy="35" r="4" fill="#fff" />
-            <line x1="305" y1="44" x2="305" y2="52" stroke="#2DB757" strokeWidth="2" />
+            <line x1="305" y1="44" x2="305" y2="52" stroke="#2A9C64" strokeWidth="2" />
           </g>
           {/* Start dot */}
-          <circle cx="15" cy="90" r="5" fill="#2DB757" opacity="0.5" />
+          <circle cx="15" cy="90" r="5" fill="#2A9C64" opacity="0.5" />
           {/* Car — top-view Bolt vehicle, rotates to follow path */}
           <g ref={carRef} transform="translate(0, 75)">
-            <circle cx={CAR_CENTER} cy={CAR_CENTER} r="14" fill="rgba(45,183,87,0.15)">
+            <circle cx={CAR_CENTER} cy={CAR_CENTER} r="14" fill="rgba(42,156,100,0.15)">
               <animate attributeName="r" values="12;20;12" dur="1.5s" repeatCount="indefinite" />
               <animate attributeName="opacity" values="0.3;0.05;0.3" dur="1.5s" repeatCount="indefinite" />
             </circle>
