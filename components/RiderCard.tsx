@@ -1,6 +1,4 @@
 'use client';
-import Image from 'next/image';
-import { useState } from 'react';
 import { RiderResult } from '@/lib/results';
 
 interface RiderCardProps {
@@ -8,8 +6,6 @@ interface RiderCardProps {
 }
 
 export default function RiderCard({ result }: RiderCardProps) {
-  const [imgError, setImgError] = useState(false);
-
   return (
     <div
       id="rider-card"
@@ -28,32 +24,16 @@ export default function RiderCard({ result }: RiderCardProps) {
         </h2>
       </div>
 
+      {/* Use plain <img> instead of Next.js Image for html2canvas compatibility */}
       <div className="text-center py-4">
         <div className="relative inline-block w-[180px] h-[140px]">
-          {imgError ? (
-            <div className="w-full h-full flex flex-col items-center justify-center bg-white/10 rounded-2xl">
-              <span className="text-4xl mb-1">
-                {result.type === 'basic' && '\u{1F697}'}
-                {result.type === 'comfort' && '\u{1F698}'}
-                {result.type === 'send' && '\u{1F4E6}'}
-                {result.type === 'tricycle' && '\u{1F6FA}'}
-              </span>
-              <span className="text-[10px] text-white/50">{result.category}</span>
-            </div>
-          ) : (
-            <Image
-              src={result.asset}
-              alt={result.category}
-              fill
-              sizes="180px"
-              style={{
-                objectFit: 'contain',
-                filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18))',
-              }}
-              priority
-              onError={() => setImgError(true)}
-            />
-          )}
+          <img
+            src={result.asset}
+            alt={result.category}
+            className="w-full h-full object-contain"
+            style={{ filter: 'drop-shadow(0 8px 16px rgba(0,0,0,0.18))' }}
+            crossOrigin="anonymous"
+          />
         </div>
       </div>
 
@@ -62,7 +42,12 @@ export default function RiderCard({ result }: RiderCardProps) {
           {result.tagline}
         </p>
         <div className="flex items-center justify-between border-t border-white/20 pt-3.5">
-          <Image src="/assets/bolt/Logo.png" alt="Bolt" width={50} height={18} style={{ objectFit: 'contain' }} />
+          <img
+            src="/assets/bolt/Logo.png"
+            alt="Bolt"
+            className="h-[18px] w-auto object-contain"
+            crossOrigin="anonymous"
+          />
           <div className="flex items-center gap-1.5">
             <span className="text-[10px] text-white/70">Move your way</span>
             <span className="w-1 h-1 bg-white/50 rounded-full" />
