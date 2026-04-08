@@ -44,16 +44,17 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
         </p>
       </div>
 
-      {/* Hero — show all 4 vehicle assets in a row */}
+      {/* Hero — show all 4 vehicle assets in a row, aligned at bottom */}
       <div className="my-4 flex items-end justify-center gap-1">
         {[
-          { src: '/assets/bolt/basic.png', alt: 'Bolt Basic', w: 90, h: 65 },
-          { src: '/assets/bolt/comfort.png', alt: 'Bolt Comfort', w: 90, h: 65 },
-          { src: '/assets/bolt/send.png', alt: 'Bolt Send', w: 75, h: 60 },
-          { src: '/assets/bolt/tricycle.png', alt: 'Bolt Tricycle', w: 75, h: 60 },
+          { src: '/assets/bolt/basic.png', alt: 'Bolt Basic' },
+          { src: '/assets/bolt/comfort.png', alt: 'Bolt Comfort' },
+          { src: '/assets/bolt/send.png', alt: 'Bolt Send' },
+          { src: '/assets/bolt/tricycle.png', alt: 'Bolt Tricycle' },
         ].map((v, i) => (
           <motion.div
             key={v.alt}
+            className="w-[80px] h-[65px] relative flex items-end justify-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
@@ -61,9 +62,9 @@ export default function LandingScreen({ onStart }: LandingScreenProps) {
             <Image
               src={v.src}
               alt={v.alt}
-              width={v.w}
-              height={v.h}
-              style={{ objectFit: 'contain' }}
+              width={80}
+              height={65}
+              style={{ objectFit: 'contain', objectPosition: 'bottom' }}
               priority
             />
           </motion.div>
