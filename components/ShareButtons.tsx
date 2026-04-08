@@ -24,7 +24,7 @@ export default function ShareButtons({ result, refCode, onClaim }: ShareButtonsP
     if (isSharing) return;
     setIsSharing(true);
     try {
-      const blob = await captureRiderCard('rider-card');
+      const blob = await captureRiderCard('rider-card', result);
       if (!blob) {
         alert('Could not capture the card. Please try again.');
         return;
