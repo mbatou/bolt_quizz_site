@@ -7,9 +7,13 @@ import ShareButtons from './ShareButtons';
 import type { RiderResult } from '@/lib/results';
 import { TRICYCLE_DISCLAIMER } from '@/lib/results';
 
+type PromoStatus = 'pending' | 'claimed' | 'exhausted' | 'error';
+
 interface ResultScreenProps {
   result: RiderResult;
   refCode: string;
+  promoCode: string | null;
+  promoStatus: PromoStatus;
   onClaim: () => void;
   onRetake: () => void;
 }
@@ -52,6 +56,8 @@ function Confetti() {
 export default function ResultScreen({
   result,
   refCode,
+  promoCode,
+  promoStatus,
   onClaim,
   onRetake,
 }: ResultScreenProps) {
@@ -93,16 +99,11 @@ export default function ResultScreen({
       </p>
       <p className="text-[15px] font-semibold mb-6">{result.category}</p>
 
-      {/* Rider Card with spring animation */}
+      {/* Rider Card */}
       <motion.div
         initial={{ scale: 0.8, opacity: 0, y: 30 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        transition={{
-          type: 'spring',
-          stiffness: 200,
-          damping: 15,
-          delay: 0.2,
-        }}
+        transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
         className="w-full"
       >
         <RiderCard result={result} />
@@ -117,17 +118,76 @@ export default function ResultScreen({
         </div>
       )}
 
-      {/* More ways to move incentive */}
-      <div className="mt-3.5 rounded-2xl px-4 py-3.5 w-full" style={{ background: 'rgba(0,0,0,0.12)' }}>
+      {/* More ways to move + Promo code */}
+      <div className="mt-4 rounded-2xl px-4 py-4 w-full" style={{ background: 'rgba(0,0,0,0.12)' }}>
         <p className="text-[10px] text-white/50 tracking-[2px] uppercase mb-1.5">
           More ways to move
         </p>
         <p className="text-[13px] text-white leading-snug">
           {result.incentive}
         </p>
+
+        {/* Promo code states */}
+        {promoStatus === 'claimed' && promoCode && (
+          <div className="mt-3 rounded-xl p-4 border" style={{ backgroundColor: '#0C2C1C', borderColor: 'rgba(42,156,100,0.3)' }}>
+            <div className="text-[9px] text-white/50 tracking-[2px] uppercase mb-1">
+              Your promo code
+            </div>
+            <div className="text-[24px] font-extrabold text-white font-mono tracking-[3px] text-center py-1">
+              {promoCode}
+            </div>
+            <div className="text-[10px] text-white/60 text-center mt-1">
+              Apply on your next Bolt ride &middot; Single use
+            </div>
+          </div>
+        )}
+
+        {promoStatus === 'pending' && (
+          <div className="mt-3 rounded-xl p-4" style={{ backgroundColor: '#0C2C1C' }}>
+            <div className="shimmer-bar w-full h-6" />
+            <div className="text-[10px] text-white/50 text-center mt-2">
+              Grabbing your promo code...
+            </div>
+          </div>
+        )}
+
+        {promoStatus === 'exhausted' && (
+          <div className="mt-3 rounded-xl p-4 border border-white/10" style={{ backgroundColor: '#0C2C1C' }}>
+            <p className="text-[12px] text-white font-semibold mb-1">
+              All codes claimed for now {'\u{1F389}'}
+            </p>
+            <p className="text-[11px] text-white/70 leading-snug">
+              Follow{' '}
+              <a href="https://instagram.com/bolt_ghana" target="_blank" rel="noopener noreferrer"
+                className="font-semibold underline" style={{ color: '#2A9C64' }}>
+                @bolt_ghana
+              </a>{' '}
+              for the next code drop. We release new codes regularly!
+            </p>
+          </div>
+        )}
+
+        {promoStatus === 'error' && (
+          <div className="mt-3 rounded-xl p-4 border border-white/10" style={{ backgroundColor: '#0C2C1C' }}>
+            <p className="text-[12px] text-white font-semibold mb-1">
+              Something went sideways
+            </p>
+            <p className="text-[11px] text-white/70 leading-snug mb-2">
+              We couldn&apos;t grab your promo code right now. DM{' '}
+              <a href="https://instagram.com/bolt_ghana" target="_blank" rel="noopener noreferrer"
+                className="font-semibold underline" style={{ color: '#2A9C64' }}>
+                @bolt_ghana
+              </a>{' '}
+              with your reference code to claim it.
+            </p>
+            {refCode && (
+              <div className="text-[10px] text-white/50 font-mono">Ref: {refCode}</div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Contest CTA — tag @bolt_ghana for a chance to win */}
+      {/* Contest CTA */}
       <div className="mt-4 rounded-2xl p-4 border border-white/10 w-full" style={{ backgroundColor: '#0C2C1C' }}>
         <div className="flex items-start gap-3">
           <div className="flex-shrink-0 w-9 h-9 rounded-xl flex items-center justify-center" style={{ backgroundColor: '#2A9C64' }}>
@@ -141,13 +201,9 @@ export default function ResultScreen({
             </p>
             <p className="text-[12px] text-white/75 leading-[1.45]">
               Share your results to Instagram and tag{' '}
-              <a
-                href="https://instagram.com/bolt_ghana"
-                target="_blank"
-                rel="noopener noreferrer"
+              <a href="https://instagram.com/bolt_ghana" target="_blank" rel="noopener noreferrer"
                 className="font-semibold underline underline-offset-2"
-                style={{ color: '#2A9C64', textDecorationColor: 'rgba(42,156,100,0.4)' }}
-              >
+                style={{ color: '#2A9C64', textDecorationColor: 'rgba(42,156,100,0.4)' }}>
                 @bolt_ghana
               </a>{' '}
               for a chance to win. Check our page for more info.
@@ -162,7 +218,7 @@ export default function ResultScreen({
       {/* Retake link */}
       <button
         onClick={onRetake}
-        className="mt-6 text-[13px] underline underline-offset-4"
+        className="mt-6 mb-4 text-[13px] underline underline-offset-4"
         style={{ color: 'rgba(255,255,255,0.55)' }}
       >
         Retake the quiz

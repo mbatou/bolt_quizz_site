@@ -8,7 +8,6 @@ export interface RiderResult {
   description: string;
   asset: string;
   incentive: string;
-  promoCode: string;
   restrictedToAccra: boolean;
 }
 
@@ -21,7 +20,6 @@ export const results: Record<RiderType, RiderResult> = {
     description: "You're moving your way with Bolt Basic \u2014 everyday rides, everyday wins.",
     asset: '/assets/bolt/basic.png',
     incentive: "Here's a 25% off promo code to try Bolt Comfort \u2014 because you deserve to move comfortably too.",
-    promoCode: 'BASIC25',
     restrictedToAccra: false,
   },
   comfort: {
@@ -32,7 +30,6 @@ export const results: Record<RiderType, RiderResult> = {
     description: "You're moving your way with Bolt Comfort \u2014 more space, more ease.",
     asset: '/assets/bolt/comfort.png',
     incentive: "Here's a 25% off promo code to try Bolt Basic on your next ride. Smart moves at everyday prices.",
-    promoCode: 'COMFORT25',
     restrictedToAccra: false,
   },
   send: {
@@ -43,7 +40,6 @@ export const results: Record<RiderType, RiderResult> = {
     description: "You're moving your way with Bolt Send \u2014 quick, safe deliveries that keep life flowing.",
     asset: '/assets/bolt/send.png',
     incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for when you need to move yourself, not just your packages.",
-    promoCode: 'SEND25',
     restrictedToAccra: false,
   },
   tricycle: {
@@ -54,7 +50,6 @@ export const results: Record<RiderType, RiderResult> = {
     description: "You're moving your way with Bolt Tricycle \u2014 easy trips, local style.",
     asset: '/assets/bolt/tricycle.png',
     incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for those times you need to move beyond the neighborhood.",
-    promoCode: 'TRIKE25',
     restrictedToAccra: true,
   },
 };

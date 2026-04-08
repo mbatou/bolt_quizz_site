@@ -12,6 +12,7 @@ import { results, type RiderType } from '@/lib/results';
 import { emptyScores, addScore, calculateRiderType, type Scores } from '@/lib/scoring';
 
 type Screen = 'landing' | 'quiz' | 'transition' | 'result' | 'reward';
+type PromoStatus = 'pending' | 'claimed' | 'exhausted' | 'error';
 
 export default function Home() {
   const [screen, setScreen] = useState<Screen>('landing');
@@ -19,10 +20,11 @@ export default function Home() {
   const [scores, setScores] = useState<Scores>(emptyScores());
   const [riderType, setRiderType] = useState<RiderType | null>(null);
   const [refCode, setRefCode] = useState('');
+  const [promoCode, setPromoCode] = useState<string | null>(null);
+  const [promoStatus, setPromoStatus] = useState<PromoStatus>('pending');
   const [referredBy, setReferredBy] = useState<string | null>(null);
   const [referralCount, setReferralCount] = useState(0);
 
-  // Read referral code from URL on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get('ref');
@@ -39,19 +41,18 @@ export default function Home() {
       setScores(newScores);
 
       if (questionIndex < questions.length - 1) {
-        // Show transition, then next question
         setScreen('transition');
         setTimeout(() => {
           setQuestionIndex((prev) => prev + 1);
           setScreen('quiz');
         }, 1100);
       } else {
-        // Quiz complete — calculate with Tricycle filter (Accra default)
         const type = calculateRiderType(newScores, true);
         setRiderType(type);
+        setPromoStatus('pending');
+        setPromoCode(null);
         setScreen('result');
 
-        // Submit to API
         fetch('/api/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -64,9 +65,12 @@ export default function Home() {
           .then((r) => r.json())
           .then((data) => {
             if (data.ref_code) setRefCode(data.ref_code);
+            setPromoCode(data.promo_code || null);
+            setPromoStatus(data.promo_code_status || 'error');
           })
           .catch(() => {
             setRefCode(Math.random().toString(36).substring(2, 10));
+            setPromoStatus('error');
           });
       }
     },
@@ -83,6 +87,8 @@ export default function Home() {
     setScores(emptyScores());
     setRiderType(null);
     setRefCode('');
+    setPromoCode(null);
+    setPromoStatus('pending');
     setReferralCount(0);
   }, []);
 
@@ -121,6 +127,8 @@ export default function Home() {
             key="result"
             result={currentResult}
             refCode={refCode}
+            promoCode={promoCode}
+            promoStatus={promoStatus}
             onClaim={handleClaim}
             onRetake={handleRetake}
           />
@@ -131,6 +139,8 @@ export default function Home() {
             key="reward"
             result={currentResult}
             refCode={refCode}
+            promoCode={promoCode}
+            promoStatus={promoStatus}
             referralCount={referralCount}
             onDone={handleDone}
           />

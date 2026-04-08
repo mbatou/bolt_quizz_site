@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Bolt promo codes — DO NOT COMMIT
+scripts/bolt-promo-codes.tsv
+scripts/bolt-promo-codes.csv
+scripts/bolt-promo-codes.xlsx
