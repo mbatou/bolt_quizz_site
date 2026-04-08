@@ -19,7 +19,7 @@ export const results: Record<RiderType, RiderResult> = {
     tagline: 'Everyday rides, everyday wins.',
     description: "You're moving your way with Bolt Basic \u2014 everyday rides, everyday wins.",
     asset: '/assets/bolt/basic.png',
-    incentive: "Here's a 25% off promo code to try Bolt Comfort \u2014 because you deserve to move comfortably too.",
+    incentive: "Here's a promo code for your next Bolt Basic ride \u2014 everyday rides, everyday wins.",
     restrictedToAccra: false,
   },
   comfort: {
@@ -29,7 +29,7 @@ export const results: Record<RiderType, RiderResult> = {
     tagline: 'More space, more ease.',
     description: "You're moving your way with Bolt Comfort \u2014 more space, more ease.",
     asset: '/assets/bolt/comfort.png',
-    incentive: "Here's a 25% off promo code to try Bolt Basic on your next ride. Smart moves at everyday prices.",
+    incentive: "Here's a promo code for your next Bolt Comfort ride \u2014 more space, more ease.",
     restrictedToAccra: false,
   },
   send: {
@@ -39,7 +39,7 @@ export const results: Record<RiderType, RiderResult> = {
     tagline: 'Easy, quick package delivery.',
     description: "You're moving your way with Bolt Send \u2014 quick, safe deliveries that keep life flowing.",
     asset: '/assets/bolt/send.png',
-    incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for when you need to move yourself, not just your packages.",
+    incentive: "Here's a promo code for your next Bolt Send delivery \u2014 quick, safe, and hassle-free.",
     restrictedToAccra: false,
   },
   tricycle: {
@@ -49,7 +49,7 @@ export const results: Record<RiderType, RiderResult> = {
     tagline: 'Easy trips, local style.',
     description: "You're moving your way with Bolt Tricycle \u2014 easy trips, local style.",
     asset: '/assets/bolt/tricycle.png',
-    incentive: "Here's a 25% off promo code to try out Bolt Basic \u2014 for those times you need to move beyond the neighborhood.",
+    incentive: "Here's a promo code for your next Bolt Tricycle trip \u2014 easy trips, local style.",
     restrictedToAccra: true,
   },
 };
