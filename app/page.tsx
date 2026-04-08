@@ -93,7 +93,7 @@ export default function Home() {
   const currentResult = riderType ? results[riderType] : null;
 
   return (
-    <main className="min-h-[100dvh] max-w-md mx-auto w-full relative overflow-hidden">
+    <main className="min-h-[100dvh] max-w-md mx-auto w-full relative overflow-x-hidden">
       <AnimatePresence mode="wait">
         {screen === 'landing' && (
           <LandingScreen key="landing" onStart={handleStart} />
