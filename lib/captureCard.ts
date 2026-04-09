@@ -81,15 +81,18 @@ export async function captureRiderCard(
   ctx.lineTo(W - 48, 570);
   ctx.stroke();
 
-  // Bolt logo text
-  ctx.fillStyle = '#FFFFFF';
-  ctx.font = '800 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-  ctx.fillText('B', 48, 620);
-  // Dot in the "o"
-  ctx.beginPath();
-  ctx.arc(80, 610, 6, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillText('lt', 90, 620);
+  // Bolt logo — use the actual Logo.png
+  try {
+    const logoImg = await loadImage('/assets/bolt/Logo.png');
+    const logoH = 32;
+    const logoW = (logoImg.naturalWidth / logoImg.naturalHeight) * logoH;
+    ctx.drawImage(logoImg, 48, 590, logoW, logoH);
+  } catch {
+    // Fallback: draw text if logo fails to load
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '800 40px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+    ctx.fillText('Bolt', 48, 620);
+  }
 
   // "Move your way" + category
   ctx.fillStyle = 'rgba(255,255,255,0.7)';
