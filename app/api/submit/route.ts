@@ -21,13 +21,22 @@ export async function POST(request: Request) {
     const isInAccra = city.toLowerCase() === 'accra';
     const rider_type = calculateRiderType(scores, isInAccra);
 
+    // Defensive guard: tricycle is deprecated as of V7-Lite.
+    // Even though no quiz answer maps to it anymore, this protects against
+    // any future logic change accidentally producing a tricycle result.
+    let final_rider_type = rider_type;
+    if ((rider_type as string) === 'tricycle') {
+      console.warn('Tricycle result generated despite deprecation — falling back to basic. Investigate scoring logic.');
+      final_rider_type = 'basic';
+    }
+
     const ref_code = nanoid(8);
 
     // 1. Create quiz_results row
     const { data: quizResult, error: insertError } = await supabase
       .from('quiz_results')
       .insert({
-        rider_type,
+        rider_type: final_rider_type,
         scores,
         ref_code,
         referred_by: referred_by || null,
@@ -41,7 +50,7 @@ export async function POST(request: Request) {
       // Fallback: return result without DB persistence
       return NextResponse.json({
         ref_code,
-        rider_type,
+        rider_type: final_rider_type,
         promo_code: null,
         promo_code_status: 'error' as const,
       });
@@ -54,7 +63,7 @@ export async function POST(request: Request) {
     try {
       const { data: claimedCode, error: claimError } = await supabase
         .rpc('claim_promo_code', {
-          target_category: rider_type,
+          target_category: final_rider_type,
           target_quiz_id: quizResult.id,
         });
 
@@ -107,7 +116,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       ref_code: quizResult.ref_code,
-      rider_type,
+      rider_type: final_rider_type,
       promo_code,
       promo_code_status,
     });
