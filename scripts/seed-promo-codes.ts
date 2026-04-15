@@ -18,16 +18,15 @@ if (!existsSync(TSV_PATH)) {
   process.exit(1);
 }
 
-const CATEGORY_MAP: Record<string, 'basic' | 'comfort' | 'send' | 'tricycle'> = {
+const CATEGORY_MAP: Record<string, 'basic' | 'comfort' | 'send'> = {
   'Bolt Basic': 'basic',
   'Bolt Comfort': 'comfort',
   'Bolt Send': 'send',
-  'Bolt Tricycle': 'tricycle',
 };
 
 interface SeedRow {
   code: string;
-  category: 'basic' | 'comfort' | 'send' | 'tricycle';
+  category: 'basic' | 'comfort' | 'send';
 }
 
 function parseTSV(contents: string): SeedRow[] {
@@ -77,6 +76,15 @@ async function main() {
 
   console.log(`Parsed ${rows.length} codes from TSV:`);
   Object.entries(byCategory).forEach(([cat, n]) => console.log(`  ${cat}: ${n}`));
+
+  const tricycleRows = rows.filter((r) => (r.category as string) === 'tricycle');
+  if (tricycleRows.length > 0) {
+    console.error(
+      `ERROR: Found ${tricycleRows.length} tricycle codes in the new TSV. ` +
+      `Tricycle is deprecated. Strip that column from the file and re-run.`
+    );
+    process.exit(1);
+  }
 
   const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 

@@ -20,7 +20,6 @@ export const questions: QuizQuestion[] = [
       { text: "Chale, let\u2019s save these coins", category: 'basic', emoji: '\u{1FA99}' },
       { text: 'Legs must stretch, AC must chill', category: 'comfort', emoji: '\u{1F60E}' },
       { text: 'Customer is waiting oo, package must land', category: 'send', emoji: '\u{1F4E6}' },
-      { text: 'Shortcut through the hood, abeg', category: 'tricycle', emoji: '\u{1F6A6}' },
     ],
   },
   {
@@ -30,7 +29,6 @@ export const questions: QuizQuestion[] = [
       { text: 'Errands + trotro-level budgeting = me', category: 'basic', emoji: '\u{1F9EE}' },
       { text: 'Brunch, selfies, and good vibes only', category: 'comfort', emoji: '\u2728' },
       { text: 'Side hustle never sleeps, deliveries loading', category: 'send', emoji: '\u{1F4F2}' },
-      { text: 'Family time + chilling with the boys/girls', category: 'tricycle', emoji: '\u{1F468}\u{200D}\u{1F469}\u{200D}\u{1F467}\u{200D}\u{1F466}' },
     ],
   },
   {
@@ -40,7 +38,6 @@ export const questions: QuizQuestion[] = [
       { text: "If it\u2019s small-small, I fit do", category: 'basic', emoji: '\u{1F4AA}\u{1F3FE}' },
       { text: "Don\u2019t worry, I\u2019ve got you covered", category: 'comfort', emoji: '\u{1F60C}' },
       { text: 'Send me location, I dey deliver fast', category: 'send', emoji: '\u{1F6B4}\u{1F3FE}' },
-      { text: "Squad assemble, let\u2019s all help", category: 'tricycle', emoji: '\u{1F91D}\u{1F3FE}' },
     ],
   },
   {
@@ -50,7 +47,6 @@ export const questions: QuizQuestion[] = [
       { text: "Stretch 10 cedis like it\u2019s 100", category: 'basic', emoji: '\u{1F9EE}' },
       { text: 'Upgrade the lifestyle, soft life only', category: 'comfort', emoji: '\u{1F334}' },
       { text: 'Drop-off, pick-up, repeat \u2014 my grind never stops', category: 'send', emoji: '\u{1F4E6}' },
-      { text: 'Run small runs for the area people', category: 'tricycle', emoji: '\u{1F3D8}\uFE0F' },
     ],
   },
   {
@@ -60,7 +56,6 @@ export const questions: QuizQuestion[] = [
       { text: "Beat rush hour or don\u2019t bother", category: 'basic', emoji: '\u{1F645}\u{1F3FE}' },
       { text: 'Chill in AC, scroll TikTok, no stress', category: 'comfort', emoji: '\u{1F4F1}' },
       { text: 'Zoom past everyone on a bike', category: 'send', emoji: '\u{1F6B4}\u{1F3FE}' },
-      { text: 'Local backroads, tricycle-only lane', category: 'tricycle', emoji: '\u{1F92B}' },
     ],
   },
   {
@@ -70,7 +65,6 @@ export const questions: QuizQuestion[] = [
       { text: 'The practical one', category: 'basic', emoji: '\u{1F9D1}\u{1F3FE}\u{200D}\u{1F4BC}' },
       { text: 'The bougie one', category: 'comfort', emoji: '\u{1F60C}' },
       { text: 'The reliable hustler', category: 'send', emoji: '\u{1F4BC}' },
-      { text: 'The life of the party', category: 'tricycle', emoji: '\u{1F389}' },
     ],
   },
   {
@@ -80,7 +74,6 @@ export const questions: QuizQuestion[] = [
       { text: 'Errands and market runs', category: 'basic', emoji: '\u{1F6CD}\uFE0F' },
       { text: 'Work trips and night outs', category: 'comfort', emoji: '\u{1F303}' },
       { text: 'Deliveries back-to-back', category: 'send', emoji: '\u{1F4E6}' },
-      { text: 'Neighborhood hopping, chilling everywhere', category: 'tricycle', emoji: '\u{1F6B2}' },
     ],
   },
 ];
